@@ -8,6 +8,7 @@ import { CustomerService } from '../../shared/customer.service';
 })
 export class CustomerListComponent implements OnInit {
   customerList:any=[];
+  products=[];
 
   constructor(
     public customerService: CustomerService
@@ -21,6 +22,17 @@ export class CustomerListComponent implements OnInit {
   loadCustomers(){ 
     return this.customerService.GetCustomers().subscribe((data:{})=>{         
     this.customerList = data;
+    })
+  }
+  
+  // WS Socket method
+  _loadProducts(){
+    this.customerService._GetCustomers().subscribe(data=>{
+      this.products = data;
+      console.log(JSON.stringify(data));
+    },
+    error=>{
+      console.log(error)
     })
   }
 
