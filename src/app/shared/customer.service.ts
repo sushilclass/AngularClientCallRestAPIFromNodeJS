@@ -65,4 +65,15 @@ export class CustomerService {
     .pipe(retry(1), catchError(this.errorHandl))
   }
   
+   // GET Customers using WebSocket
+  _GetCustomers():Observable<any>{    
+    if(this._webSocket)
+    {
+      console.log("connected");
+       this.context.action = "getAll";
+      this._webSocket.next(this.context);
+    }
+    return this._webSocket.asObservable();
+  }
+  
 }
